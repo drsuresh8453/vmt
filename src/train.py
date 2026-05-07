@@ -129,7 +129,7 @@ def train_models(X_train, X_test, y_train, y_test, cat_features=None):
     if XGB_AVAILABLE:
         print("\nTraining XGBoost...")
         xgb = XGBRegressor(
-            n_estimators=300,
+            n_estimators=200,
             max_depth=6,
             learning_rate=0.08,
             subsample=0.8,
