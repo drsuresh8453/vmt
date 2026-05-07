@@ -1,0 +1,95 @@
+# k8s/deployment.yml — Vehicle Mileage MLOps Project
+# Author: Suresh D R | DV Analytics
+# Production deployment — 2 replicas
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicle-mileage-app
+  namespace: default
+  labels:
+    app: vehicle-mileage
+    version: "1.0"
+    author: suresh-dr
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vehicle-mileage
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: vehicle-mileage
+    spec:
+      containers:
+      - name: vehicle-mileage-app
+        image: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/vehicle-mileage:latest
+        ports:
+        - containerPort: 8501
+          name: streamlit
+        - containerPort: 8000
+          name: fastapi
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secrets
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secrets
+              key: aws-secret-access-key
+        - name: AWS_REGION
+          value: "ap-south-1"
+        - name: S3_BUCKET
+          value: "vehicle-mileage-project"
+        - name: SAGEMAKER_PIPELINE
+          value: "vehicle-mileage-pipeline"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /_stcore/health
+            port: 8501
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /_stcore/health
+            port: 8501
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vehicle-mileage-service
+  namespace: default
+  labels:
+    app: vehicle-mileage
+spec:
+  type: LoadBalancer
+  selector:
+    app: vehicle-mileage
+  ports:
+  - name: streamlit
+    protocol: TCP
+    port: 8501
+    targetPort: 8501
+  - name: fastapi
+    protocol: TCP
+    port: 8000
+    targetPort: 8000

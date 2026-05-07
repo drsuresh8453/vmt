@@ -1,0 +1,227 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Vehicle Mileage — Data Drift Report</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+            .header { background: #1F4E79; color: white; padding: 20px; border-radius: 8px; }
+            .summary { background: white; padding: 20px; margin: 10px 0; border-radius: 8px;
+                        border-left: 5px solid #C00000; }
+            table { width: 100%; border-collapse: collapse; background: white; }
+            th { background: #1F4E79; color: white; padding: 10px; }
+            td { padding: 8px; border: 1px solid #ddd; }
+            .drift { color: #C00000; font-weight: bold; }
+            .ok    { color: #28a745; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Vehicle Mileage Prediction — Data Drift Report</h1>
+            <p>Author: Suresh D R | DV Analytics | Generated: 2026-05-07 16:53:44</p>
+        </div>
+
+        <div class="summary">
+            <h2>DRIFT DETECTED — Retraining Triggered</h2>
+            <p><strong>Drifted Features:</strong> 5 / 19</p>
+            <p><strong>Drift Ratio:</strong> 26.32%</p>
+            <p><strong>Reference Data:</strong> 49,502 records (training data — 06_encoded_tree.csv)</p>
+            <p><strong>Current Data:</strong> 5,000 records (new policies — data/new_policies.csv)</p>
+        </div>
+
+        <h2>Feature Drift Details</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>P-Value</th>
+                <th>Status</th>
+            </tr>
+    
+            <tr>
+                <td>annual_kms</td>
+                <td>0.577901</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>home_to_office_km</td>
+                <td>0.0</td>
+                <td class="drift">DRIFTED</td>
+            </tr>
+        
+            <tr>
+                <td>selling_price</td>
+                <td>0.0</td>
+                <td class="drift">DRIFTED</td>
+            </tr>
+        
+            <tr>
+                <td>annual_commute_km</td>
+                <td>0.0</td>
+                <td class="drift">DRIFTED</td>
+            </tr>
+        
+            <tr>
+                <td>family_trip_km</td>
+                <td>0.0</td>
+                <td class="drift">DRIFTED</td>
+            </tr>
+        
+            <tr>
+                <td>daily_trips</td>
+                <td>0.0</td>
+                <td class="drift">DRIFTED</td>
+            </tr>
+        
+            <tr>
+                <td>driving_exp_years</td>
+                <td>0.996909</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>num_vehicles_owned</td>
+                <td>1.0</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>num_children</td>
+                <td>0.897316</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>fuel_type</td>
+                <td>0.815176</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>brand_tier</td>
+                <td>0.999839</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>occupation</td>
+                <td>1.0</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>is_rideshare</td>
+                <td>0.2933</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>uses_for_business</td>
+                <td>0.394098</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>is_high_mileage</td>
+                <td>0.999651</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>is_premium_brand</td>
+                <td>0.991275</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>highway_access</td>
+                <td>0.999414</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>night_driving</td>
+                <td>0.454325</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+            <tr>
+                <td>has_metro_rail</td>
+                <td>0.385889</td>
+                <td class="ok">OK</td>
+            </tr>
+        
+        </table>
+
+        <h2>Statistical Summary — Reference vs Current</h2>
+        <table>
+            <tr><th>Feature</th><th>Reference Mean</th><th>Current Mean</th><th>Change %</th></tr>
+    
+            <tr>
+                <td>annual_kms</td>
+                <td>41,296.85</td>
+                <td>41,463.54</td>
+                <td style="color:#28a745; font-weight:bold">+0.4%</td>
+            </tr>
+            
+            <tr>
+                <td>home_to_office_km</td>
+                <td>15.21</td>
+                <td>26.58</td>
+                <td style="color:#C00000; font-weight:bold">+74.7%</td>
+            </tr>
+            
+            <tr>
+                <td>selling_price</td>
+                <td>1,332,954.32</td>
+                <td>1,659,525.22</td>
+                <td style="color:#C00000; font-weight:bold">+24.5%</td>
+            </tr>
+            
+            <tr>
+                <td>annual_commute_km</td>
+                <td>4,170.12</td>
+                <td>8,691.26</td>
+                <td style="color:#C00000; font-weight:bold">+108.4%</td>
+            </tr>
+            
+            <tr>
+                <td>family_trip_km</td>
+                <td>2,262.62</td>
+                <td>2,959.88</td>
+                <td style="color:#C00000; font-weight:bold">+30.8%</td>
+            </tr>
+            
+            <tr>
+                <td>daily_trips</td>
+                <td>8.07</td>
+                <td>15.62</td>
+                <td style="color:#C00000; font-weight:bold">+93.6%</td>
+            </tr>
+            
+            <tr>
+                <td>driving_exp_years</td>
+                <td>21.10</td>
+                <td>21.09</td>
+                <td style="color:#28a745; font-weight:bold">-0.0%</td>
+            </tr>
+            
+            <tr>
+                <td>num_vehicles_owned</td>
+                <td>1.46</td>
+                <td>1.46</td>
+                <td style="color:#28a745; font-weight:bold">-0.0%</td>
+            </tr>
+            
+            <tr>
+                <td>num_children</td>
+                <td>0.83</td>
+                <td>0.84</td>
+                <td style="color:#28a745; font-weight:bold">+1.8%</td>
+            </tr>
+            
+        </table>
+        <p><em>Report generated by Vehicle Mileage MLOps Pipeline | DV Analytics</em></p>
+    </body>
+    </html>
+    
