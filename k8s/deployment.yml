@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: vehicle-mileage-app
-        image: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/vehicle-mileage:latest
+        image: 968603941077.dkr.ecr.ap-south-1.amazonaws.com/vehicle-mileage:latest
         ports:
         - containerPort: 8501
           name: streamlit
